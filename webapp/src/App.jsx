@@ -3,9 +3,11 @@ import Header from "./components/Header";
 import ResultList from "./components/ResultList";
 import Searcher from "./components/Searcher";
 import { useExternalApi as useClientResponse } from "./hooks/clientResponse";
+import { useExternalApi as useServiceResponse } from "./hooks/serviceResponse";
 function App() {
   // hooks functions
   const { getClientes, upsertClient } = useClientResponse();
+  const { upsertService } = useServiceResponse();
 
   // useState
   const [clientes, setClientes] = useState([]);
@@ -23,11 +25,19 @@ function App() {
     await getClientes(setClientes);
   };
 
+  const handlerCreateService = async (service) => {
+    await upsertService(service);
+    await getClientes(setClientes);
+  };
+
   return (
     <div className="App">
       <Header />
       <Searcher handlerCreateClient={handlerCreateClient} />
-      <ResultList clients={clientes} />
+      <ResultList
+        handlerCreateService={handlerCreateService}
+        clients={clientes}
+      />
     </div>
   );
 }

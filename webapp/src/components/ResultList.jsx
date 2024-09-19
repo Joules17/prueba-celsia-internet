@@ -8,12 +8,26 @@ import {
   ListItem,
   ListItemContent,
   ListItemDecorator,
+  Modal,
+  ModalClose,
   Sheet,
   Typography,
 } from "@mui/joy";
-
+import React, { useState } from "react";
 import { formatDate, formatMoney } from "../utility/format";
-export default function ResultList({ clients }) {
+import ServiceForm from "./ServiceForm";
+export default function ResultList({ clients, handlerCreateService }) {
+  const [formOpen, setFormOpen] = useState(false);
+  const [personSelected, setPersonSelected] = useState({});
+  const handlerOpen = (person) => {
+    setPersonSelected(person);
+    setFormOpen(true);
+  };
+
+  const handlerClose = () => {
+    setFormOpen(false);
+  };
+
   if (clients === undefined) {
     return (
       <Box
@@ -71,6 +85,34 @@ export default function ResultList({ clients }) {
             </div>
           </Box>
           <Divider component="div" sx={{ my: 2 }} />
+          <Modal
+            aria-labelledby="modal-title"
+            aria-describedby="modal-desc"
+            open={formOpen}
+            onClose={handlerClose}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Sheet
+              variant="outlined"
+              sx={{
+                maxWidth: 500,
+                borderRadius: "md",
+                p: 3,
+                boxShadow: "lg",
+              }}
+            >
+              <ModalClose variant="plain" sx={{ m: 1 }} />
+              <ServiceForm
+                person={personSelected}
+                handlerClose={handlerClose}
+                handlerCreateService={handlerCreateService}
+              />
+            </Sheet>
+          </Modal>
           <List sx={{ "--ListItemDecorator-size": "40px", gap: 2 }}>
             {person.Servicios.map((service, serviceIndex) => (
               <ListItem key={serviceIndex} sx={{ alignItems: "flex-start" }}>
@@ -101,7 +143,14 @@ export default function ResultList({ clients }) {
               </ListItem>
             ))}
           </List>
-          <Button size="sm" variant="plain" sx={{ px: 1, mt: 1 }}>
+          <Button
+            size="sm"
+            variant="plain"
+            sx={{ px: 1, mt: 1 }}
+            onClick={() => {
+              handlerOpen(person);
+            }}
+          >
             Agregar servicio
           </Button>
         </Sheet>

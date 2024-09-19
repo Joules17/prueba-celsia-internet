@@ -1,0 +1,71 @@
+version: "1.0"
+services: 
+  postgres:
+    image: postgres:10.3
+    container_name: postgrescont  
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "2"
+    restart: always
+    networks:
+      - api-network
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: user
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    image: dpage/pgadmin4:7.3
+    container_name: pgadmincont    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "2"
+    restart: always
+    networks:
+      - api-network
+    ports:
+      - 5400:80 
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@email.com  
+      PGADMIN_DEFAULT_PASSWORD: user        
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin     
+
+  api: 
+    build: 
+      context: . 
+      dockerfile: Dockerfile
+    container_name: apicont 
+    depends_on: 
+      postgres: 
+        condition: service_healthy
+    networks: 
+      - api-network
+    ports: 
+      - 8080:8080
+    environment:
+      DB_HOST: postgres
+      DB_USER: user
+      DB_PASSWORD: user
+      DB_NAME: user
+      DB_PORT: 5432 
+    restart: always
+
+networks:
+  api-network: 
+    driver: bridge

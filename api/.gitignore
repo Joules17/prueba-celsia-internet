@@ -1,0 +1,4 @@
+# Ignoring docker-compose data 
+pgadmin-data/
+postgres-data/
+postgres-init/

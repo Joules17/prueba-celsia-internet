@@ -107,6 +107,7 @@ Para el desarrollo de la prueba teórica, tendrás que escribir tus respuestas e
 - RTA: <img src="./assets/diagrama.png" alt="Diagrama" width="400">
 
   2.2. ¿Qué mecanismos de seguridad incluirías en la aplicación para garantizar la protección del acceso a los datos?
+  Un mecanismo de autenticacion tanto para el back como el front.
 
 - RTA:
 

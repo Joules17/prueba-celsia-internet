@@ -140,6 +140,17 @@ Para el desarrollo de la prueba teórica, tendrás que escribir tus respuestas e
 
 3.1. Explica la diferencia entre un router y un switch. ¿Cuándo usarías cada uno?
 
+La diferencia entre un router y un switch radica en que el router es un enrutador mientras que el switch es un conmutador.
+
+El router permite conectar multiples redes entre si, por ejemplo, las ONTs son routers que permiten conectar la red local LAN a internet.
+
+Por otra parte, un switch es el orquestador o conmutador que permite conectar varios dispositivos a una misma red. Este dispositivo recibe los datos y es encargado de enviarlos a su destino dentro de la misma red. Por ejemplo en una casa entre un celular un computador y una impresora, el switch es el que permite la conexion y comunicacion entre estos dispositivos.
+
+¿Cuando los usaria?
+
+¿Quiero conectar una red privada o domestica a internet? Router
+¿Quiero conectar varios dispositivos de mi hogar a una misma red y coordinar su comunicacion? Switch
+
 - RTA:
 
   3.2. Describe las siete capas del modelo OSI y menciona brevemente la función principal de cada una
@@ -166,6 +177,10 @@ Para el desarrollo de la prueba teórica, tendrás que escribir tus respuestas e
 - RTA:
 
   3.3. Explica las diferencias entre los protocolos TCP y UDP. Dar un ejemplo de cuándo usarías cada uno?
+
+  El protocolo TCP (Transmission Control Protocol) se encarga de asegurar una conexión entre emisor y receptor previo a que los datos se envien, por esta razon asegura el paso de informacion entre ambos dispositivos. Este protocolo es utilizado cuando se debe enviar informacion sin que se vea afectada la integridad de los datos, ademas de asegurar la entrega de la misma, por esa razon es usado en la navegacion web.
+
+  Por otra parte esta el User Datagram Protocol, el cual no garantiza una conexion ni una entrega de la informacion. Sin embargo, tiene ventajas como la rapidez ya que no necesita confirmar un receptor. Este protocolo es usado en aplicaciones que priorizan la rapidez y las actualizaciones frecuentes mas que la validez y exactitud de toda la informacion entregada, por ejemplo, los juegos o transmisiones.
 
 - RTA:
 
